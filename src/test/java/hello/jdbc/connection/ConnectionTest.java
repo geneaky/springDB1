@@ -43,11 +43,11 @@ public class ConnectionTest {
         Connection con8 = dataSource.getConnection();
         Connection con9 = dataSource.getConnection();
         Connection con10 = dataSource.getConnection();
-        Connection con11 = dataSource.getConnection();
-        Connection con12 = dataSource.getConnection();
 
-        log.info("connection={}, class={}", con1, con1.getClass());
-        log.info("connection={}, class={}", con2, con2.getClass());
+        con1.close();
+        con3.close();
+        con6.close();
+        con10.close();
     }
 
     @Test
@@ -62,6 +62,19 @@ public class ConnectionTest {
 
         useDataSource(dataSource);
         Thread.sleep(1000);
+        Connection connection1 = dataSource.getConnection();
+        Connection connection2 = dataSource.getConnection();
+        Connection connection3 = dataSource.getConnection();
+        Connection connection4 = dataSource.getConnection();
+        log.info("1 connection={}, class={}", connection1, connection1.getClass());
+        log.info("2 connection={}, class={}", connection2, connection2.getClass());
+        log.info("3 connection={}, class={}", connection3, connection3.getClass());
+        log.info("4 connection={}, class={}", connection4, connection4.getClass());
 
+        /*
+        * connection pool에서 커넥션 제거하고 다시 생성했을 때
+        * connection id가 몇번 부터 채워질까 봤더니
+        * 랜덤하게 채워지네
+        * */
     }
 }
