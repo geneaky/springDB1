@@ -4,8 +4,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.net.ConnectException;
 import java.sql.SQLException;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class UncheckedAppTest {
 
     @Test
@@ -14,6 +16,16 @@ public class UncheckedAppTest {
         assertThatThrownBy(() -> {
             controller.request();
         }).isInstanceOf(RuntimeSqlException.class);
+    }
+
+    @Test
+    public void printEx() throws Exception {
+        Controller controller = new Controller();
+        try {
+            controller.request();
+        }catch (Exception e) {
+            log.info("ex",e);
+        }
     }
 
     static class Controller {
